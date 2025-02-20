@@ -7,6 +7,8 @@ import threading
 import shutil
 tmp_file = ''
 global_msg = ''
+ref_path = os.path.dirname(os.path.abspath(__file__)) + '/ref.wav'
+corrected_file_path = ref_path.replace('\\', '/')
 def get_file_names(directory):
     file_names = []
     for root, _, files in os.walk(directory):
@@ -14,7 +16,6 @@ def get_file_names(directory):
             file_path = os.path.join(root, file)
             file_names.append(file_path)
     return file_names
-
 
 
 def getname(directory_to_list):
@@ -72,8 +73,8 @@ def play_sound(num):
 
 i = 0
 def gengerate_voice(text):
-    global tmp_file,i
-    url = f'http://127.0.0.1:9880/?refer_wav_path=F:/yzc/IDM/LLM/SillyTavern/public/sounds/ref.wav&prompt_text=やめない、壊れそうだから、さきが壊れたら&prompt_language=ja&text=' + text + '&text_language=zh&top_k=15&top_p=1&temperature=0.5&speed=1&cut_punc=，。`'
+    global tmp_file,i,ref_path
+    url = f'http://127.0.0.1:9880/?refer_wav_path='+ corrected_file_path + '&prompt_text=やめない、壊れそうだから、さきが壊れたら&prompt_language=ja&text=' + text + '&text_language=zh&top_k=15&top_p=1&temperature=0.5&speed=1&cut_punc=，。`'
     try:
         if tmp_file == '':
             if os.path.exists('./tmpfile'):
