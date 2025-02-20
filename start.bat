@@ -1,3 +1,3 @@
-.venv\Scripts\Activate.ps1
+call .venv\Scripts\activate.bat
 python ./main.py
 pause
