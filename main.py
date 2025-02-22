@@ -5,6 +5,8 @@ import requests
 import winsound
 import threading
 import shutil
+from config import Tavern_path
+
 tmp_file = ''
 global_msg = ''
 ref_path = os.path.dirname(os.path.abspath(__file__)) + '/ref.wav'
@@ -98,17 +100,17 @@ def gengerate_voice(text):
 
 def main():
     global global_msg
-    path =getname('../data/default-user/chats')
+    path =getname(Tavern_path)
     ids = input('请选择要监听的对话:(数字)\n')
     msg = read_json_file(path[int(ids)])
     while True:
         msg = read_json_file(path[int(ids)])
         if msg['is_user'] == True:
             print("当前为用户对话,请确保最后一条消息不为用户消息")
-            time.sleep(10)
+            time.sleep(5)
         if msg['is_user'] == False and msg['mes'] != global_msg:
             global_msg = msg['mes']
             gengerate_voice(format_str(global_msg))
-        time.sleep(5)
+        time.sleep(3)
     
 main()
